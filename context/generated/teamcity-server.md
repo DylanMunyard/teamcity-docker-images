@@ -13,6 +13,8 @@ When running an image with multi-architecture support, docker will automatically
 
 #### linux
 
+- 20.04-openjdk
+  - [EAP-linux-openjdk](#EAP-linux-openjdk)
 - 20.04
   - [EAP-linux](#EAP-linux)
 - 18.04
@@ -34,11 +36,12 @@ When running an image with multi-architecture support, docker will automatically
 
 ### EAP
 
-Supported platforms: linux 20.04, windows 1809, windows 2004
+Supported platforms: linux 20.04, linux 20.04-openjdk, windows 1809, windows 2004
 
 #### Content
 
 - [EAP-linux](#EAP-linux)
+- [EAP-linux-openjdk](#EAP-linux-openjdk)
 - [EAP-nanoserver-1809](#EAP-nanoserver-1809)
 - [EAP-nanoserver-2004](#EAP-nanoserver-2004)
 
@@ -67,6 +70,34 @@ docker pull ubuntu:20.04
 echo TeamCity/buildAgent > context/.dockerignore
 echo TeamCity/temp >> context/.dockerignore
 docker build -f "context/generated/linux/Server/Ubuntu/20.04/Dockerfile" -t teamcity-server:EAP-linux "context"
+```
+
+_The required free space to generate image(s) is about **1 GB**._
+
+### EAP-linux-openjdk
+
+[Dockerfile](linux/Server/Ubuntu/20.04-openjdk/Dockerfile)
+
+This is an official [JetBrains TeamCity](https://www.jetbrains.com/teamcity/) server image. The image is suitable for production use and evaluation purposes.
+This replaces Amazon Corretto JRE with OpenJDK. This is to support running on architectures that Corretto doesn't support yet, such as *ARM* architectures.
+
+The docker image is available on:
+
+- [https://hub.docker.com/r/jetbrains/teamcity-server](https://hub.docker.com/r/jetbrains/teamcity-server)
+
+Installed components:
+
+- Git v.2.25.1
+
+Container platform: linux
+
+Docker build commands:
+
+```
+docker pull ubuntu:20.04
+echo TeamCity/buildAgent > context/.dockerignore
+echo TeamCity/temp >> context/.dockerignore
+docker build -f "context/generated/linux/Server/Ubuntu/20.04-openjdk/Dockerfile" -t teamcity-server:EAP-linux-openjdk "context"
 ```
 
 _The required free space to generate image(s) is about **1 GB**._
